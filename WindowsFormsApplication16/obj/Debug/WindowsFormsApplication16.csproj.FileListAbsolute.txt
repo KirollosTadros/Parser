@@ -8,3 +8,13 @@ c:\users\kirollostadros\documents\visual studio 2012\Projects\WindowsFormsApplic
 c:\users\kirollostadros\documents\visual studio 2012\Projects\WindowsFormsApplication16\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.exe
 c:\users\kirollostadros\documents\visual studio 2012\Projects\WindowsFormsApplication16\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.pdb
 C:\Users\KirollosTadros\Documents\Visual Studio 2012\Projects\WindowsFormsApplication16\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.Syntax_Tree.resources
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\bin\Debug\WindowsFormsApplication16.exe.config
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.exe
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.pdb
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\bin\Debug\WindowsFormsApplication16.exe
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\bin\Debug\WindowsFormsApplication16.pdb
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.csprojResolveAssemblyReference.cache
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.Form1.resources
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.Properties.Resources.resources
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.Syntax_Tree.resources
+F:\4th Year CSE\Compilers\Parser\WindowsFormsApplication16\obj\Debug\WindowsFormsApplication16.csproj.GenerateResource.Cache

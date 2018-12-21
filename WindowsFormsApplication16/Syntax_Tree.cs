@@ -19,10 +19,12 @@ namespace WindowsFormsApplication16
         public Syntax_Tree(string Input)
         {
             InitializeComponent();
-            DrawArea = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
+            DrawArea = new Bitmap(5000, 5000);
             parser = Input; 
             panel1.AutoScroll = true;
-       
+            //pictureBox1.Width = pictureBox1.Height = 5000;
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            
         }
 
         private void Syntax_Tree_Load(object sender, EventArgs e)
@@ -82,7 +84,7 @@ namespace WindowsFormsApplication16
                         G.DrawLine(P1, new Point(C1.X + 7, C1.Y), new Point(C1.X + 7, C1.Y + 20));
                         C1 = new Point(C1.X, C1.Y + 20);
                         G.DrawString(item.Dequeue(), F1, B1, C1);
-                        C1 = new Point(C1.X + 80, pnt.Peek().Y + 10);
+                        C1 = new Point(C1.X + 280, pnt.Peek().Y + 10);
                         G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
                         C1 = new Point(C1.X, C1.Y - 10);
                         pnt.Pop();
@@ -99,7 +101,7 @@ namespace WindowsFormsApplication16
                         name.Dequeue();
                         C1 = new Point(C1.X, C1.Y + 20);
                         brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name,0 );
-                        C1 = new Point(C1.X + 80, pnt.Peek().Y + 10);
+                        C1 = new Point(C1.X + 180, pnt.Peek().Y + 10);
                         G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
                         C1 = new Point(C1.X, C1.Y - 10);
                         pnt.Pop();
@@ -150,8 +152,8 @@ namespace WindowsFormsApplication16
                         pnt.Push( new Point(C1.X + 150, C1.Y));
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         name.Dequeue();
-                        G.DrawLine(P1, new Point(C1.X +10, C1.Y+20), new Point(C1.X +10, C1.Y + 70));
-                        C1 = new Point(C1.X+10, C1.Y + 70);
+                        G.DrawLine(P1, new Point(C1.X +10, C1.Y+20), new Point(C1.X +10, C1.Y + 300));
+                        C1 = new Point(C1.X+10, C1.Y + 300);
                         pnt.Push( C1);
                         G.DrawLine(P1, C1, new Point(C1.X-80, C1.Y + 80));
                         C1 = new Point(C1.X - 80, C1.Y + 80);
@@ -168,8 +170,8 @@ namespace WindowsFormsApplication16
                         G.DrawLine(P1, new Point(C1.X - 2, C1.Y), new Point(C1.X - 32, C1.Y + 40));
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));
                         C1 = pnt.Peek();
-                        G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 90));
-                        C1 = new Point(C1.X-20, C1.Y + 90);
+                        G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 190));
+                        C1 = new Point(C1.X-20, C1.Y + 190);
                        
                     }
 
@@ -180,8 +182,9 @@ namespace WindowsFormsApplication16
                         if (pnt.Count == 2)
                         {
                             pnt.Pop();
+                            C1 = pnt.Pop();
                         }
-                        else
+                         else if(pnt.Count == 1)
                         {
                             C1 = pnt.Pop();
                         }
