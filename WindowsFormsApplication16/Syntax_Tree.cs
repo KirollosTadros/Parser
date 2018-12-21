@@ -59,7 +59,7 @@ namespace WindowsFormsApplication16
             Stack<string> id = new Stack<string>();
             Stack<string> op = new Stack<string>();
             Stack <Point> pnt = new Stack <Point> ();
-
+           
             while ((item.Count!=0) || (name.Count!=0))
             {
            
@@ -101,8 +101,11 @@ namespace WindowsFormsApplication16
                         name.Dequeue();
                         C1 = new Point(C1.X, C1.Y + 20);
                         brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name,0 );
-                        C1 = new Point(C1.X + 180, pnt.Peek().Y + 10);
-                        G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
+                        if ((item.Count() != 0) && !(item.Peek().Contains("end") || item.Peek().Contains("else") || item.Peek().Contains("until")))
+                        {
+                            C1 = new Point(C1.X + 180, pnt.Peek().Y + 10);
+                            G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
+                        }
                         C1 = new Point(C1.X, C1.Y - 10);
                         pnt.Pop();
                         //name.Dequeue();
@@ -225,9 +228,11 @@ namespace WindowsFormsApplication16
                    
 
                     brack_rgx (G,  B1,  P1, ref C1,  F1,  id,  op,item,name,  bas);
-                 
-                    C1 = new Point(old.X + 150, old.Y + 10);
-                    G.DrawLine(P1, new Point(old.X + 70, old.Y + 10), C1);
+                    if ((item.Count() != 0) && !(item.Peek().Contains("end") || item.Peek().Contains("else") || item.Peek().Contains("until")))
+                    {
+                        C1 = new Point(old.X + 150, old.Y + 10);
+                        G.DrawLine(P1, new Point(old.X + 70, old.Y + 10), C1);
+                    }
                     C1 = new Point(C1.X, C1.Y - 10);
                  
                 }
