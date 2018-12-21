@@ -177,23 +177,7 @@ namespace WindowsFormsApplication16
                         C1 = new Point(pnt.Peek().X - 45, pnt.Peek().Y + 40);
                         pnt.Pop();
                         brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name, 0);
-                        /*
-                        C1 = new Point(C1.X, C1.Y + 10);
-
-                        C1 = pnt.Pop();
-                        /*
-                        id.Push(item.Dequeue());
-                        name.Dequeue();
-                        op.Push(item.Dequeue());
-                        name.Dequeue();
-                        id.Push(item.Dequeue());
-                        name.Dequeue();
-                        G.DrawString(op.Pop(), F1, B1, C1);
-                        C1 = new Point(C1.X, C1.Y + 10);
-                        G.DrawLine(P1, new Point(C1.X + 15, C1.Y), new Point(C1.X + 45, C1.Y + 40));
-                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X + 40, C1.Y + 40));
-                        G.DrawLine(P1, new Point(C1.X - 2, C1.Y), new Point(C1.X - 32, C1.Y + 40));
-                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));*/
+                       
                         C1 = pnt.Peek();
                         G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 190));
                         C1 = new Point(C1.X-20, C1.Y + 190);
@@ -310,57 +294,85 @@ namespace WindowsFormsApplication16
 
         static void brack_rgx(Graphics G, Brush B1, Pen P1,ref Point C1, Font F1, Stack <string> id, Stack <string> op,Queue <string> item, Queue <string> name, int bas)
         {
-                       id.Push(item.Dequeue());
-                    name.Dequeue();
-                    
-                    while ((name.Count!=0)&&name.Peek().Contains("symbol"))
+            if (item.Peek().Contains("("))
+            {
+                item.Dequeue();
+                name.Dequeue();
+                id.Push(item.Dequeue());
+                name.Dequeue();
+
+                while ((name.Count != 0) && name.Peek().Contains("symbol"))
+                {
+
+                    if (item.Peek().Contains("+") || item.Peek().Contains("-") || item.Peek().Contains("*") || item.Peek().Contains("+"))
                     {
+                        op.Push(item.Dequeue());
+                        name.Dequeue();
+                        id.Push(item.Dequeue());
+                        name.Dequeue();
+                    }
+                    else break;
                     
-                        if (item.Peek().Contains("+") || item.Peek().Contains("-") || item.Peek().Contains("*") || item.Peek().Contains("+"))
+                }
+                rgx(G, B1, P1, C1, F1, id, op, bas);
+                item.Dequeue();
+                name.Dequeue();
+            }
+            else
+            {
+                id.Push(item.Dequeue());
+                name.Dequeue();
+
+                while ((name.Count != 0) && name.Peek().Contains("symbol"))
+                {
+
+                    if (item.Peek().Contains("+") || item.Peek().Contains("-") || item.Peek().Contains("*") || item.Peek().Contains("+"))
+                    {
+                        op.Push(item.Dequeue());
+                        name.Dequeue();
+                        bool brack_falg = false;
+                        if (item.Peek().Contains("("))
                         {
-                            op.Push(item.Dequeue());
+
+                            brack_falg = true;
+                            Stack<string> br1 = new Stack<string>();
+                            Stack<string> br2 = new Stack<string>();
+                            item.Dequeue();
                             name.Dequeue();
-                            bool brack_falg = false;
-                            if (item.Peek().Contains("("))
+                            br2.Push(item.Dequeue());
+                            name.Dequeue();
+                            while (!item.Peek().Contains(")"))
                             {
-                                brack_falg = true;
-                                Stack<string> br1 = new Stack<string>();
-                                Stack<string> br2 = new Stack<string>();
-                                item.Dequeue();
+                                br1.Push(item.Dequeue());
                                 name.Dequeue();
                                 br2.Push(item.Dequeue());
                                 name.Dequeue();
-                                while (!item.Peek().Contains(")"))
-                                {
-                                    br1.Push(item.Dequeue());
-                                    name.Dequeue();
-                                    br2.Push(item.Dequeue());
-                                    name.Dequeue();
-                                }
-                                item.Dequeue();
-                                name.Dequeue();
+                            }
+                            item.Dequeue();
+                            name.Dequeue();
 
-                                C1 = new Point(C1.X - 5, C1.Y);
-                                G.DrawString("op", F1, B1, C1);
-                                C1 = new Point(C1.X + 5, C1.Y + 20);
-                                G.DrawString(op.Pop(), F1, B1, C1);
-                                C1 = new Point(C1.X, C1.Y + 20);
-                                G.DrawLine(P1, new Point(C1.X + 15, C1.Y - 10), new Point(C1.X + 70, C1.Y + 45));
-                                G.DrawLine(P1, new Point(C1.X, C1.Y - 10), new Point(C1.X - 55, C1.Y + 45));
-                                C1 = new Point(C1.X + 65, C1.Y + 45);
-                                rgx(G, B1, P1, C1, F1, br2, br1, 0);
-                                C1 = new Point(C1.X - 130, C1.Y);
-                            }
-                            if (!brack_falg)
-                            {
-                                id.Push(item.Dequeue());
-                                name.Dequeue();
-                            }
+                            C1 = new Point(C1.X - 5, C1.Y);
+                            G.DrawString("op", F1, B1, C1);
+                            C1 = new Point(C1.X + 5, C1.Y + 20);
+                            G.DrawString(op.Pop(), F1, B1, C1);
+                            C1 = new Point(C1.X, C1.Y + 20);
+                            G.DrawLine(P1, new Point(C1.X + 15, C1.Y - 10), new Point(C1.X + 70, C1.Y + 45));
+                            G.DrawLine(P1, new Point(C1.X, C1.Y - 10), new Point(C1.X - 55, C1.Y + 45));
+                            C1 = new Point(C1.X + 65, C1.Y + 45);
+                            rgx(G, B1, P1, C1, F1, br2, br1, 0);
+                            C1 = new Point(C1.X - 130, C1.Y);
                         }
-                        else
-                            break;
+                        if (!brack_falg)
+                        {
+                            id.Push(item.Dequeue());
+                            name.Dequeue();
+                        }
                     }
-                    rgx(G, B1, P1, C1, F1, id, op, bas);
+                    else
+                        break;
+                }
+                rgx(G, B1, P1, C1, F1, id, op, bas);
+            }
         }
     }
 }
