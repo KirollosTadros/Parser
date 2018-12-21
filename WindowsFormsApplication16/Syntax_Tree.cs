@@ -81,8 +81,6 @@ namespace WindowsFormsApplication16
                         pnt.Push(C1);
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         C1 = new Point(C1.X + 15, C1.Y + 20);
-                        G.DrawLine(P1, new Point(C1.X + 7, C1.Y), new Point(C1.X + 7, C1.Y + 20));
-                        C1 = new Point(C1.X, C1.Y + 20);
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         C1 = new Point(C1.X + 280, pnt.Peek().Y + 10);
                         G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
