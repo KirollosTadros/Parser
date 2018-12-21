@@ -123,9 +123,9 @@ namespace WindowsFormsApplication16
                         C1= new Point (C1.X, C1.Y+60);
                         G.DrawLine(P1, C1, new Point(C1.X+20, C1.Y + 20));
                         pnt.Push(new Point(C1.X + 20, C1.Y + 20));
-                        G.DrawLine(P1, C1, new Point (C1.X-140,C1.Y+140));
+                        G.DrawLine(P1, C1, new Point (C1.X-200,C1.Y+200));
                         G.DrawLine(P1, C1, new Point (C1.X-40,C1.Y+40));
-                        C1=new Point (C1.X-160,C1.Y+140);
+                        C1=new Point (C1.X-220,C1.Y+200);
                         
 
                     }
@@ -134,19 +134,22 @@ namespace WindowsFormsApplication16
                     {
                         item.Dequeue();
                         name.Dequeue();
-                        C1 = pnt.Pop();
-                        id.Push(item.Dequeue());
-                        name.Dequeue();
+                        C1 = pnt.Peek();
+                        G.DrawLine(P1, new Point(C1.X + 15, C1.Y+10), new Point(C1.X + 45, C1.Y + 40));
+                        C1 = new Point(C1.X + 45, C1.Y + 40);
+                        brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name, 0);
+
+                      
                         op.Push(item.Dequeue());
                         name.Dequeue();
-                        id.Push(item.Dequeue());
-                        name.Dequeue();
-                        G.DrawString(op.Pop(), F1, B1, C1);
+                        G.DrawString(op.Pop(), F1, B1, new Point (pnt.Peek().X, pnt.Peek().Y));
+                        G.DrawLine(P1, new Point(pnt.Peek().X - 5, pnt.Peek().Y+10), new Point(pnt.Peek().X-35, pnt.Peek().Y+40));
+                        C1 = new Point(pnt.Peek().X - 45, pnt.Peek().Y + 40);
+                        pnt.Pop();
+                        brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name, 0);
+                     
                         C1 = new Point(C1.X,C1.Y+10);
-                        G.DrawLine(P1, new Point(C1.X + 15, C1.Y), new Point(C1.X + 45, C1.Y + 40));
-                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X + 40, C1.Y + 40));
-                        G.DrawLine(P1, new Point(C1.X -2, C1.Y ), new Point(C1.X - 32, C1.Y + 40));
-                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));
+                
                         C1 = pnt.Pop();
                     }
                     else if (item.Peek().Contains("if"))
@@ -160,6 +163,25 @@ namespace WindowsFormsApplication16
                         pnt.Push( C1);
                         G.DrawLine(P1, C1, new Point(C1.X-80, C1.Y + 80));
                         C1 = new Point(C1.X - 80, C1.Y + 80);
+
+                         pnt.Push(C1);
+                        G.DrawLine(P1, new Point(C1.X + 15, C1.Y + 10), new Point(C1.X + 45, C1.Y + 40));
+                        C1 = new Point(C1.X + 45, C1.Y + 40);
+                        brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name, 0);
+
+
+                        op.Push(item.Dequeue());
+                        name.Dequeue();
+                        G.DrawString(op.Pop(), F1, B1, new Point(pnt.Peek().X, pnt.Peek().Y));
+                        G.DrawLine(P1, new Point(pnt.Peek().X - 5, pnt.Peek().Y + 10), new Point(pnt.Peek().X - 35, pnt.Peek().Y + 40));
+                        C1 = new Point(pnt.Peek().X - 45, pnt.Peek().Y + 40);
+                        pnt.Pop();
+                        brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name, 0);
+                        /*
+                        C1 = new Point(C1.X, C1.Y + 10);
+
+                        C1 = pnt.Pop();
+                        /*
                         id.Push(item.Dequeue());
                         name.Dequeue();
                         op.Push(item.Dequeue());
@@ -171,7 +193,7 @@ namespace WindowsFormsApplication16
                         G.DrawLine(P1, new Point(C1.X + 15, C1.Y), new Point(C1.X + 45, C1.Y + 40));
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X + 40, C1.Y + 40));
                         G.DrawLine(P1, new Point(C1.X - 2, C1.Y), new Point(C1.X - 32, C1.Y + 40));
-                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));
+                        G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));*/
                         C1 = pnt.Peek();
                         G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 190));
                         C1 = new Point(C1.X-20, C1.Y + 190);
