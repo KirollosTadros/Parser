@@ -55,7 +55,7 @@ namespace WindowsFormsApplication16
              
             Stack<string> id = new Stack<string>();
             Stack<string> op = new Stack<string>();
-
+            Stack <Point> pnt = new Stack <Point> ();
 
             Point repeat = new Point(0,0);
             Point repeat_old = new Point(0,0);
@@ -79,32 +79,50 @@ namespace WindowsFormsApplication16
                 }
                 else if (name.Peek().Contains("resevered"))
                 {
-                    if (item.Peek().Contains("read") || item.Peek().Contains("write"))
+                    if (item.Peek().Contains("read") )
                     {
-                        Point old = C1;
+                        pnt.Push(C1);
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         C1 = new Point(C1.X + 15, C1.Y + 20);
                         G.DrawLine(P1, new Point(C1.X + 7, C1.Y), new Point(C1.X + 7, C1.Y + 20));
                         C1 = new Point(C1.X, C1.Y + 20);
                         G.DrawString(item.Dequeue(), F1, B1, C1);
-                        C1 = new Point(C1.X + 80, old.Y + 10);
-                        G.DrawLine(P1, new Point(old.X + 50, old.Y + 10), C1);
+                        C1 = new Point(C1.X + 80, pnt.Peek().Y + 10);
+                        G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
                         C1 = new Point(C1.X, C1.Y - 10);
+                        pnt.Pop();
                         name.Dequeue();
                         name.Dequeue();
+                    }
+                    else if (item.Peek().Contains("write"))
+                    {
+                        int bas=id.Count-1; 
+                        pnt.Push(C1);
+                        G.DrawString(item.Dequeue(), F1, B1, C1);
+                        C1 = new Point(C1.X + 15, C1.Y + 20);
+                        G.DrawLine(P1, new Point(C1.X + 7, C1.Y), new Point(C1.X + 7, C1.Y + 20));
+                        name.Dequeue();
+                        C1 = new Point(C1.X, C1.Y + 20);
+                        brack_rgx(G, B1, P1, ref C1, F1, id, op, item, name,0 );
+                        C1 = new Point(C1.X + 80, pnt.Peek().Y + 10);
+                        G.DrawLine(P1, new Point(pnt.Peek().X + 50, pnt.Peek().Y + 10), C1);
+                        C1 = new Point(C1.X, C1.Y - 10);
+                        pnt.Pop();
+                        //name.Dequeue();
+                        
                     }
 
                     else if (item.Peek().Contains("repeat"))
                     {
                         G.DrawLine(P1, new Point(C1.X + 60, C1.Y+10), new Point(C1.X + 200, C1.Y+10));
-                        repeat_old = new Point(C1.X + 200, C1.Y);
+                        pnt.Push( new Point(C1.X + 200, C1.Y));
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         name.Dequeue();
                         C1 = new Point(C1.X+20,C1.Y+20);
                         G.DrawLine(P1, C1, new Point (C1.X,C1.Y+60));
                         C1= new Point (C1.X, C1.Y+60);
                         G.DrawLine(P1, C1, new Point(C1.X+20, C1.Y + 20));
-                        repeat = new Point(C1.X + 20, C1.Y + 20);
+                        pnt.Push(new Point(C1.X + 20, C1.Y + 20));
                         G.DrawLine(P1, C1, new Point (C1.X-140,C1.Y+140));
                         G.DrawLine(P1, C1, new Point (C1.X-40,C1.Y+40));
                         C1=new Point (C1.X-160,C1.Y+140);
@@ -116,7 +134,7 @@ namespace WindowsFormsApplication16
                     {
                         item.Dequeue();
                         name.Dequeue();
-                        C1 = repeat;
+                        C1 = pnt.Pop();
                         id.Push(item.Dequeue());
                         name.Dequeue();
                         op.Push(item.Dequeue());
@@ -129,17 +147,17 @@ namespace WindowsFormsApplication16
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X + 40, C1.Y + 40));
                         G.DrawLine(P1, new Point(C1.X -2, C1.Y ), new Point(C1.X - 32, C1.Y + 40));
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));
-                        C1 = repeat_old;
+                        C1 = pnt.Pop();
                     }
                     else if (item.Peek().Contains("if"))
                     {
                         G.DrawLine(P1, new Point(C1.X + 30, C1.Y + 10), new Point(C1.X + 150, C1.Y + 10));
-                        IF_old = new Point(C1.X + 150, C1.Y);
+                        pnt.Push( new Point(C1.X + 150, C1.Y));
                         G.DrawString(item.Dequeue(), F1, B1, C1);
                         name.Dequeue();
-                        G.DrawLine(P1, new Point(C1.X +10, C1.Y+20), new Point(C1.X +10, C1.Y + 110));
-                        C1 = new Point(C1.X+10, C1.Y + 110);
-                        IF = C1;
+                        G.DrawLine(P1, new Point(C1.X +10, C1.Y+20), new Point(C1.X +10, C1.Y + 70));
+                        C1 = new Point(C1.X+10, C1.Y + 70);
+                        pnt.Push( C1);
                         G.DrawLine(P1, C1, new Point(C1.X-80, C1.Y + 80));
                         C1 = new Point(C1.X - 80, C1.Y + 80);
                         id.Push(item.Dequeue());
@@ -154,9 +172,9 @@ namespace WindowsFormsApplication16
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X + 40, C1.Y + 40));
                         G.DrawLine(P1, new Point(C1.X - 2, C1.Y), new Point(C1.X - 32, C1.Y + 40));
                         G.DrawString(id.Pop(), F1, B1, new Point(C1.X - 40, C1.Y + 40));
-                        C1 = IF;
-                        G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 180));
-                        C1 = new Point(C1.X-20, C1.Y + 180);
+                        C1 = pnt.Peek();
+                        G.DrawLine(P1, C1, new Point(C1.X , C1.Y + 90));
+                        C1 = new Point(C1.X-20, C1.Y + 90);
                        
                     }
 
@@ -164,14 +182,21 @@ namespace WindowsFormsApplication16
                     {
                         item.Dequeue();
                         name.Dequeue();
-                        C1 = IF_old;
+                        if (pnt.Count == 2)
+                        {
+                            pnt.Pop();
+                        }
+                        else
+                        {
+                            C1 = pnt.Pop();
+                        }
 
                     }
                     else if (item.Peek().Contains("else"))
                     {
                         item.Dequeue();
                         name.Dequeue();
-                        C1 = IF;
+                        C1 = pnt.Pop();
                         G.DrawLine(P1, C1, new Point(C1.X + 80, C1.Y + 80));
                         C1 = new Point(C1.X + 80, C1.Y + 80);
                        
@@ -190,6 +215,7 @@ namespace WindowsFormsApplication16
                 {
                     int bas=id.Count-1;  //edit when end project
                     item.Dequeue();
+                    
                     Point old = C1;
 
                   
@@ -203,49 +229,13 @@ namespace WindowsFormsApplication16
                     C1 = new Point(C1.X, C1.Y + 20);
                    
                    
-                    id.Push(item.Dequeue());
-                    name.Dequeue();
-                    
-                    while (name.Peek().Contains("symbol"))
-                    {
-                        if (item.Peek().Contains("+") || item.Peek().Contains("-") || item.Peek().Contains("*") || item.Peek().Contains("+"))
-                        {
-                            op.Push(item.Dequeue());
-                            name.Dequeue();
-                            id.Push(item.Dequeue());
-                            name.Dequeue();
-                        }
-                        else
-                            break;
-                    }
-                  
+         
 
-                    while (op.Count != 0 || id.Count != bas /*edit when project end*/)
-                    {
-                        if (op.Count != 0)
-                        {
-                            C1 = new Point( C1.X -5, C1.Y);
-                            G.DrawString("op", F1, B1, C1);
-                            C1 = new Point(C1.X + 5, C1.Y + 20);
-                            G.DrawString(op.Pop(), F1, B1, C1);
-                            C1 = new Point(C1.X, C1.Y + 20);
-                            G.DrawLine(P1, new Point(C1.X + 15, C1.Y - 10), new Point(C1.X + 70, C1.Y + 45));
-                            G.DrawLine(P1, new Point(C1.X , C1.Y-10), new Point(C1.X - 55, C1.Y + 45));
-                            C1 = new Point(C1.X + 65, C1.Y+45);
-                            G.DrawString(id.Pop(), F1, B1, C1);
-                            C1 = new Point(C1.X - 130, C1.Y);
-
-                        }
-                        else
-                        {
-                           
-                            G.DrawString(id.Pop(), F1, B1, C1);
-                            C1 = new Point(C1.X + 320, old.Y + 10);
-                            G.DrawLine(P1, new Point(old.X + 70, old.Y + 10), C1);
-                            C1 = new Point(C1.X, C1.Y - 10);
-                        }
-
-                    }
+                    brack_rgx (G,  B1,  P1, ref C1,  F1,  id,  op,item,name,  bas);
+                 
+                    C1 = new Point(old.X + 150, old.Y + 10);
+                    G.DrawLine(P1, new Point(old.X + 70, old.Y + 10), C1);
+                    C1 = new Point(C1.X, C1.Y - 10);
                  
                 }
                 else if (name.Peek().Contains("symbol"))
@@ -269,6 +259,88 @@ namespace WindowsFormsApplication16
 
         }
 
-  
+        static void rgx (Graphics G, Brush B1, Pen P1, Point C1, Font F1, Stack <string> id, Stack <string> op, int bas)
+    {
+        while (op.Count != 0 || id.Count > bas)  //edit when project end
+        {
+            if (op.Count != 0)
+            {
+                C1 = new Point(C1.X - 5, C1.Y);
+                G.DrawString("op", F1, B1, C1);
+                C1 = new Point(C1.X + 5, C1.Y + 20);
+                G.DrawString(op.Pop(), F1, B1, C1);
+                C1 = new Point(C1.X, C1.Y + 20);
+                G.DrawLine(P1, new Point(C1.X + 15, C1.Y - 10), new Point(C1.X + 70, C1.Y + 45));
+                G.DrawLine(P1, new Point(C1.X, C1.Y - 10), new Point(C1.X - 55, C1.Y + 45));
+                C1 = new Point(C1.X + 65, C1.Y + 45);
+                G.DrawString(id.Pop(), F1, B1, C1);
+                C1 = new Point(C1.X - 130, C1.Y);
+
+            }
+            else
+            {
+
+                G.DrawString(id.Pop(), F1, B1, C1);
+
+            }
+
+        }
+    }
+
+
+        static void brack_rgx(Graphics G, Brush B1, Pen P1,ref Point C1, Font F1, Stack <string> id, Stack <string> op,Queue <string> item, Queue <string> name, int bas)
+        {
+                       id.Push(item.Dequeue());
+                    name.Dequeue();
+                    
+                    while ((name.Count!=0)&&name.Peek().Contains("symbol"))
+                    {
+                    
+                        if (item.Peek().Contains("+") || item.Peek().Contains("-") || item.Peek().Contains("*") || item.Peek().Contains("+"))
+                        {
+                            op.Push(item.Dequeue());
+                            name.Dequeue();
+                            bool brack_falg = false;
+                            if (item.Peek().Contains("("))
+                            {
+                                brack_falg = true;
+                                Stack<string> br1 = new Stack<string>();
+                                Stack<string> br2 = new Stack<string>();
+                                item.Dequeue();
+                                name.Dequeue();
+                                br2.Push(item.Dequeue());
+                                name.Dequeue();
+                                while (!item.Peek().Contains(")"))
+                                {
+                                    br1.Push(item.Dequeue());
+                                    name.Dequeue();
+                                    br2.Push(item.Dequeue());
+                                    name.Dequeue();
+                                }
+                                item.Dequeue();
+                                name.Dequeue();
+
+                                C1 = new Point(C1.X - 5, C1.Y);
+                                G.DrawString("op", F1, B1, C1);
+                                C1 = new Point(C1.X + 5, C1.Y + 20);
+                                G.DrawString(op.Pop(), F1, B1, C1);
+                                C1 = new Point(C1.X, C1.Y + 20);
+                                G.DrawLine(P1, new Point(C1.X + 15, C1.Y - 10), new Point(C1.X + 70, C1.Y + 45));
+                                G.DrawLine(P1, new Point(C1.X, C1.Y - 10), new Point(C1.X - 55, C1.Y + 45));
+                                C1 = new Point(C1.X + 65, C1.Y + 45);
+                                rgx(G, B1, P1, C1, F1, br2, br1, 0);
+                                C1 = new Point(C1.X - 130, C1.Y);
+                            }
+                            if (!brack_falg)
+                            {
+                                id.Push(item.Dequeue());
+                                name.Dequeue();
+                            }
+                        }
+                        else
+                            break;
+                    }
+                    rgx(G, B1, P1, C1, F1, id, op, bas);
+        }
     }
 }
