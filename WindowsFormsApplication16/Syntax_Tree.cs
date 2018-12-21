@@ -20,7 +20,8 @@ namespace WindowsFormsApplication16
         {
             InitializeComponent();
             DrawArea = new Bitmap(pictureBox1.Size.Width, pictureBox1.Size.Height);
-            parser = Input;
+            parser = Input; 
+            panel1.AutoScroll = true;
        
         }
 
@@ -57,12 +58,6 @@ namespace WindowsFormsApplication16
             Stack<string> op = new Stack<string>();
             Stack <Point> pnt = new Stack <Point> ();
 
-            Point repeat = new Point(0,0);
-            Point repeat_old = new Point(0,0);
-
-            Point IF = new Point(0,0);
-            Point IF_old = new Point(0,0);
-            
             while ((item.Count!=0) || (name.Count!=0))
             {
            
@@ -218,9 +213,6 @@ namespace WindowsFormsApplication16
                     
                     Point old = C1;
 
-                  
-                   // G.DrawLine(P1, new Point (old.X, old.Y+10), new Point(old.X +60, old.Y+10));
-                    //C1 = new Point(C1.X + 60, C1.Y );
                     G.DrawString(name.Dequeue(), F1, B1, C1);
                     C1 = new Point(C1.X + 15, C1.Y + 20);
                     G.DrawString(id.Pop(), F1, B1, C1);
@@ -228,8 +220,6 @@ namespace WindowsFormsApplication16
                     G.DrawLine(P1, new Point(C1.X + 7, C1.Y), new Point(C1.X + 7, C1.Y + 20));
                     C1 = new Point(C1.X, C1.Y + 20);
                    
-                   
-         
 
                     brack_rgx (G,  B1,  P1, ref C1,  F1,  id,  op,item,name,  bas);
                  
