@@ -30,12 +30,14 @@ namespace WindowsFormsApplication16
         private void Open_Click(object sender, EventArgs e)
         {
            
-            File_Name.Visible = true;
+            
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                File_Name.Visible = true;
                 File_Name.Text = openFileDialog1.FileName;
                 File_Name.Visible = true;
-                File_str = File.ReadAllText(File_Name.Text); 
+                File_str = File.ReadAllText(File_Name.Text);
+                new Syntax_Tree(getTokens(File_str)).Show();
             }
             /*
             output = getTokens(File_str);
@@ -47,7 +49,7 @@ namespace WindowsFormsApplication16
            {
                File.WriteAllText(saveFileDialog1.FileName, output);
            }*/
-           new Syntax_Tree(getTokens(File_str)).Show();
+           
 
             /*
             output = getTokens(File_str);   //Scanning function
@@ -309,6 +311,8 @@ namespace WindowsFormsApplication16
    
             return output;
         }
+
+
 
       
     }

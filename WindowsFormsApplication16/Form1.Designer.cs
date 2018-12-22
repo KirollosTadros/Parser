@@ -67,9 +67,9 @@
             this.Choose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Choose.Location = new System.Drawing.Point(83, 9);
             this.Choose.Name = "Choose";
-            this.Choose.Size = new System.Drawing.Size(225, 20);
+            this.Choose.Size = new System.Drawing.Size(229, 20);
             this.Choose.TabIndex = 3;
-            this.Choose.Text = "Open the file you want to Scan";
+            this.Choose.Text = "Open the file you want to Parse";
             // 
             // Form1
             // 
@@ -80,7 +80,7 @@
             this.Controls.Add(this.File_Name);
             this.Controls.Add(this.Open);
             this.Name = "Form1";
-            this.Text = "Scanner";
+            this.Text = "Parser";
             this.ResumeLayout(false);
             this.PerformLayout();
 

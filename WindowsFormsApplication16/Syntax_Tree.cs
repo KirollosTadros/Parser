@@ -22,7 +22,6 @@ namespace WindowsFormsApplication16
             DrawArea = new Bitmap(5000, 5000);
             parser = Input; 
             panel1.AutoScroll = true;
-            //pictureBox1.Width = pictureBox1.Height = 5000;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
             
         }
@@ -33,6 +32,7 @@ namespace WindowsFormsApplication16
             Graphics g;
             g = Graphics.FromImage(DrawArea);
             parsing(g, parser);
+
         }
         static void parsing(Graphics G, string s)
         {
@@ -258,7 +258,7 @@ namespace WindowsFormsApplication16
 
 
             //G.DrawString("assign", F1, B1, new PointF(600, 10));
-
+           
         }
 
         static void rgx (Graphics G, Brush B1, Pen P1, Point C1, Font F1, Stack <string> id, Stack <string> op, int bas)
